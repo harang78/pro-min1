@@ -1,14 +1,37 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LottoForge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+    <div class="container">
+        <header>
+            <h1>LottoForge</h1>
+            <p class="subtitle">Your Daily Dose of Luck</p>
+        </header>
+        <main>
+            <div class="lotto-machine">
+                <h2>Lotto Numbers</h2>
+                <div id="numbers-pool" class="numbers-pool"></div>
+            </div>
+            <div class="controls">
+                <button id="draw-button">Draw Numbers</button>
+            </div>
+            <div class="results">
+                <h2>Winning Numbers</h2>
+                <div id="winning-numbers" class="winning-numbers"></div>
+                <h2>Bonus Number</h2>
+                <div id="bonus-number" class="bonus-number"></div>
+            </div>
+        </main>
+    </div>
+    <script src="main.js"></script>
 </body>
 </html>
