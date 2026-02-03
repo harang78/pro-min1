@@ -1,0 +1,5 @@
+name = "pro-min1"
+compatibility_date = "2026-02-03"
+
+[site]
+bucket = "."
