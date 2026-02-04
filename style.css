@@ -236,3 +236,36 @@ lotto-ball.drawn {
     }
 }
 
+/* Language Switcher */
+.lang-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.lang-switcher button {
+    background: none;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.lang-switcher button:hover,
+.lang-switcher button.active {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+@media (max-width: 480px) {
+    .lang-switcher {
+        position: static;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+}
+

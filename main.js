@@ -1,3 +1,45 @@
+const translations = {
+    en: {
+        subtitle: "Your Daily Dose of Luck",
+        lottoNumbers: "Lotto Numbers",
+        drawButton: "Draw Numbers",
+        winningNumbers: "Winning Numbers",
+        bonusNumber: "Bonus Number",
+        partnershipInquiry: "Partnership Inquiry",
+        formName: "Name:",
+        formEmail: "Email:",
+        formMessage: "Message:",
+        formButton: "Send Inquiry",
+    },
+    ko: {
+        subtitle: "오늘의 행운을 시험해보세요",
+        lottoNumbers: "로또 번호",
+        drawButton: "번호 뽑기",
+        winningNumbers: "당첨 번호",
+        bonusNumber: "보너스 번호",
+        partnershipInquiry: "제휴 문의",
+        formName: "이름:",
+        formEmail: "이메일:",
+        formMessage: "내용:",
+        formButton: "문의 보내기",
+    }
+};
+
+const setLanguage = (lang) => {
+    document.querySelectorAll('[data-i18n-key]').forEach(element => {
+        const key = element.getAttribute('data-i18n-key');
+        element.textContent = translations[lang][key];
+    });
+    document.documentElement.lang = lang;
+    localStorage.setItem('lang', lang);
+    updateLangButtons(lang);
+};
+
+const updateLangButtons = (lang) => {
+    document.getElementById('lang-ko').classList.toggle('active', lang === 'ko');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+};
+
 class LottoBall extends HTMLElement {
     constructor() {
         super();
@@ -36,6 +78,17 @@ class LottoBall extends HTMLElement {
 customElements.define('lotto-ball', LottoBall);
 
 document.addEventListener('DOMContentLoaded', () => {
+    // i18n setup
+    const langKoButton = document.getElementById('lang-ko');
+    const langEnButton = document.getElementById('lang-en');
+
+    langKoButton.addEventListener('click', () => setLanguage('ko'));
+    langEnButton.addEventListener('click', () => setLanguage('en'));
+
+    const savedLang = localStorage.getItem('lang') || 'en';
+    setLanguage(savedLang);
+
+    // Lotto machine setup
     const numbersPool = document.getElementById('numbers-pool');
     const drawButton = document.getElementById('draw-button');
     const winningNumbersContainer = document.getElementById('winning-numbers');
