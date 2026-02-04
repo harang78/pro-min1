@@ -10,6 +10,7 @@ const translations = {
         formEmail: "Email:",
         formMessage: "Message:",
         formButton: "Send Inquiry",
+        comments: "Comments",
     },
     ko: {
         subtitle: "오늘의 행운을 시험해보세요",
@@ -22,6 +23,7 @@ const translations = {
         formEmail: "이메일:",
         formMessage: "내용:",
         formButton: "문의 보내기",
+        comments: "댓글",
     }
 };
 
