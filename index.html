@@ -1,82 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LottoForge</title>
+    <title>동물상 테스트 (웰시코기 vs 포메라니안)</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="lang-switcher">
-                <button id="lang-ko">한국어</button>
-                <button id="lang-en">English</button>
-            </div>
-            <h1>LottoForge</h1>
-            <p class="subtitle" data-i18n-key="subtitle">Your Daily Dose of Luck</p>
-        </header>
-        <main>
-            <div class="lotto-machine">
-                <h2 data-i18n-key="lottoNumbers">Lotto Numbers</h2>
-                <div id="numbers-pool" class="numbers-pool"></div>
-            </div>
-            <div class="controls">
-                <button id="draw-button" data-i18n-key="drawButton">Draw Numbers</button>
-            </div>
-            <div class="results">
-                <h2 data-i18n-key="winningNumbers">Winning Numbers</h2>
-                <div id="winning-numbers" class="winning-numbers"></div>
-                <h2 data-i18n-key="bonusNumber">Bonus Number</h2>
-                <div id="bonus-number" class="bonus-number"></div>
-            </div>
-        </main>
-        
-        <section class="contact-form-section">
-            <h2 data-i18n-key="partnershipInquiry">Partnership Inquiry</h2>
-            <form action="https://formspree.io/f/xvzqewjz" method="POST" class="contact-form">
-                <div class="form-group">
-                    <label for="name" data-i18n-key="formName">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email" data-i18n-key="formEmail">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message" data-i18n-key="formMessage">Message:</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="submit-button" data-i18n-key="formButton">Send Inquiry</button>
-            </form>
-        </section>
-
-        <section class="disqus-section">
-            <h2 data-i18n-key="comments">Comments</h2>
-            <div id="disqus_thread"></div>
-            <script>
-                /**
-                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-                /*
-                var disqus_config = function () {
-                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                };
-                */
-                (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-                s.src = 'https://pro-min.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        </section>
+    <h1>당신의 동물상은 무엇일까요?</h1>
+    <p>사진을 업로드하여 웰시코기상인지, 포메라니안상인지 확인해보세요!</p>
+    <input type="file" id="image-upload" accept="image/*">
+    <div id="image-container">
+        <img id="uploaded-image" src="" alt="Uploaded Image"/>
     </div>
+    <div id="result-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
