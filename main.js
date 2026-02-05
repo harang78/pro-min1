@@ -1,68 +1,68 @@
-const URL = "https://teachablemachine.withgoogle.com/models/uftNTflll/";
+// Teachable Machine 모델 URL
+const URL = "https://teachablemachine.withgoogle.com/models/jl_z0qpqE/";
 
-let model, resultContainer;
-const imageUpload = document.getElementById('image-upload');
-const uploadedImage = document.getElementById('uploaded-image');
+let model, labelContainer, maxPredictions;
 
+// DOM 요소 가져오기
+const uploadInput = document.getElementById('upload');
+const imagePreview = document.getElementById('image-preview');
+const labelContainerElem = document.getElementById('label-container');
+
+// 페이지 로드 시 모델 초기화
 async function init() {
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
-    // Load the model and metadata
-    try {
-        model = await tmImage.load(modelURL, metadataURL);
-    } catch (e) {
-        console.error("Error loading the model:", e);
-        resultContainer.innerHTML = "모델을 로드하는 데 실패했습니다. 페이지를 새로고침해주세요.";
-        return;
-    }
-    
-    resultContainer = document.getElementById("result-container");
-    resultContainer.innerHTML = "사진을 업로드해주세요."; // Initial prompt
+    // 모델과 메타데이터 로드
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    labelContainerElem.innerHTML = "사진을 업로드하여 테스트를 시작하세요!";
 }
 
+// 이미지 예측 함수
 async function predict(image) {
-    if (!model) {
-        console.error("Model not loaded yet");
-        return;
-    }
+    // 예측 실행
     const prediction = await model.predict(image);
-    let highestProb = 0;
-    let bestClass = "";
 
-    for (let i = 0; i < prediction.length; i++) {
-        if (prediction[i].probability > highestProb) {
-            highestProb = prediction[i].probability;
-            bestClass = prediction[i].className;
+    // 가장 확률이 높은 클래스 찾기
+    let highestPrediction = prediction[0];
+    for (let i = 1; i < maxPredictions; i++) {
+        if (prediction[i].probability > highestPrediction.probability) {
+            highestPrediction = prediction[i];
         }
     }
-
-    if (bestClass === "웰시코기") {
-        resultContainer.innerHTML = `당신은 ${Math.round(highestProb * 100)}% 확률로 웰시코기상! 🐕`;
-    } else if (bestClass === "포메라니안") {
-        resultContainer.innerHTML = `당신은 ${Math.round(highestProb * 100)}% 확률로 포메라니안상! 🐶`;
+    
+    // 결과 표시
+    let resultText = "";
+    if (highestPrediction.className === "강아지") {
+        resultText = "당신은 멍뭉미 넘치는 강아지상!";
+    } else if (highestPrediction.className === "고양이") {
+        resultText = "당신은 시크한 매력의 고양이상!";
     } else {
-         resultContainer.innerHTML = "얼굴을 명확하게 보여주는 사진을 업로드해주세요!";
+        resultText = "결과를 분석 중입니다...";
     }
+    labelContainerElem.innerHTML = resultText;
 }
 
-imageUpload.addEventListener('change', (event) => {
+// 파일 업로드 이벤트 리스너
+uploadInput.addEventListener('change', async (event) => {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
-        reader.onload = (e) => {
-            uploadedImage.src = e.target.result;
-            uploadedImage.style.display = 'block';
+        reader.onload = async (e) => {
+            // 이미지 미리보기 업데이트
+            imagePreview.innerHTML = `<img src="${e.target.result}" alt="업로드된 이미지">`;
             
-            // Wait for image to be fully loaded into the img tag before predicting
-            uploadedImage.onload = () => {
-                resultContainer.innerHTML = "분석 중..."; // Show loading message
-                setTimeout(() => predict(uploadedImage), 100); // Add a small delay for rendering
-            };
+            // 예측 실행
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = () => predict(image);
         };
         reader.readAsDataURL(file);
     }
 });
 
-// Initialize the application
+
+// 앱 시작
 init();
