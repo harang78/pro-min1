@@ -34,7 +34,11 @@ p {
     margin-bottom: 30px;
 }
 
-.start-btn {
+.upload-area input[type="file"] {
+    display: none;
+}
+
+.upload-btn {
     display: inline-block;
     padding: 12px 30px;
     background: linear-gradient(45deg, #5e72e4, #825ee4);
@@ -45,20 +49,28 @@ p {
     font-weight: bold;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-    margin-top: 20px;
 }
 
-.start-btn:hover {
+.upload-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
-#webcam-container {
-    margin: 20px auto;
-    border: 2px solid #ddd;
+#image-preview {
+    margin-top: 20px;
+    min-height: 200px;
+    border: 2px dashed #ddd;
     border-radius: 10px;
-    overflow: hidden; /* Ensures webcam feed stays within border-radius */
-    display: none; /* Hidden until webcam starts */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+}
+
+#image-preview img {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 5px;
 }
 
 #label-container {
@@ -67,4 +79,8 @@ p {
     font-weight: bold;
     color: #5e72e4;
     min-height: 50px;
+}
+
+#webcam-container {
+    display: none;
 }
